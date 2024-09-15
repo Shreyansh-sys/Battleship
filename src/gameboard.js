@@ -5,17 +5,26 @@ export class Gameboard {
     this.missedAttacks = [];
   }
   placeShip(ship, startCoord, direction) {
-    if (this.isOccupied(startCoord)) {
-      throw new Error(
-        "Ship cannot be placed here, overlapping with another ship"
-      );
-    }
-    ship.coordinates = this.generateShipCoordinates(
+    const newShipCoordinates = this.generateShipCoordinates(
       startCoord,
       ship.length,
       direction
     );
+
+    if (this.areCoordinatesOccupied(newShipCoordinates)) {
+      throw new Error(
+        "Ship cannot be placed here, overlapping with another ship"
+      );
+    }
+    ship.coordinates = newShipCoordinates;
     this.ships.push(ship);
+  }
+  areCoordinatesOccupied(coordinates) {
+    return coordinates.some((coord) =>
+      this.ships.some((ship) =>
+        ship.coordinates.some((c) => this.isSameCoordinate(c, coord))
+      )
+    );
   }
   isOccupied(startCoord) {
     return this.ships.some((ship) =>

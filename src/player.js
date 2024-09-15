@@ -23,8 +23,8 @@ export class Player {
       coord = this.generateRandomCoord();
     } while (this.hasAlreadyAttacked(opponent, coord));
 
-    this.attack(opponent, coord); // Execute the attack
-  return coord; // Return the coordinate that was attacked
+    this.attack(opponent, coord); 
+  return coord; 
   }
   generateRandomCoord() {
     const x = Math.floor(Math.random() * 10);

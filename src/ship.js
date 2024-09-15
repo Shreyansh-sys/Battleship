@@ -3,6 +3,7 @@ export class Ship {
     this.length = length;
     this.hitsTaken = hitsTaken;
     this.hitPositions = new Array(length).fill(false); // Track hits at specific positions
+    this.coordinates = [];
   }
   // Accept an index to mark that specific position as hit
   hit(index) {

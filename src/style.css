@@ -1,20 +1,132 @@
 .roboto-regular {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-body{
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-template-rows: 1fr 6fr;
-    font-family: 'Roboto';
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+  font-family: "Roboto";
+  background-color: rgb(225, 204, 244);
+}
+
+header {
+  display: flex;
+  background-color: black;
+  color: white;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0em 1em;
+  font-size: 2em;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container {
+  display: grid;
+  grid-template-rows: 1fr 6fr;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  background-color: #004080;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px);
+}
+
+.grid-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0em 15em;
+}
+
+.player-grid,
+.computer-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  max-height: 500px;
+  background-color: white;
+  outline: 2px solid #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.player-grid.disabled,
+.computer-grid.disabled {
+  opacity: 0.5; 
+  cursor: not-allowed;
+}
+
+.player-grid.disabled .squares,
+.computer-grid.disabled .squares {
+  pointer-events: none;
+  background-color: #f0f0f0; 
+}
+
+.rows {
+  display: flex;
+  flex-direction: row;
+}
+
+.squares {
+  border: 1px solid black;
+}
+
+.ship-highlight {
+    background-color: #3498db; /* Change to desired ship color */
+}
+
+.squares.hit {
+    background-color: red; /* Example hit color */
+}
+
+.squares.miss {
+    background-color: lightgray; /* Example miss color */
 }
 
