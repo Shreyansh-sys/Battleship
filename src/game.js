@@ -35,17 +35,27 @@ export function startGame(highlightShipCallback) {
   computer.gameboard.placeShip(computerShip2, [3, 0], "horizontal");
   computer.gameboard.placeShip(computerShip3, [5, 0], "horizontal");
 
+  function delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
-  return function processAttack(coord) {
-      const result = computer.gameboard.receiveAttack(coord);
-      updateUI(result, coord, "computer");
-    if(computer.gameboard.allShipsSunk()) {
-        alert("You Won! Computer Lost!")
-        return;
+  return async function processAttack(coord) {
+    const result = computer.gameboard.receiveAttack(coord);
+    updateUI(result, coord, "computer");
+    if (computer.gameboard.allShipsSunk()) {
+      await delay(0); // Ensures UI updates first
+      alert("You Won! Computer Lost!");
+      return;
     }
-    const compAttackCoord = (computer.randomAttack(player));
+    const compAttackCoord = computer.randomAttack(player);
     const compAttackResult = player.gameboard.receiveAttack(compAttackCoord);
     updateUI(compAttackResult, compAttackCoord, "player");
+    if (player.gameboard.allShipsSunk()) {
+      await delay(0); // Ensures UI updates first
+      alert("Computer Won! You Lost!");
+
+      return;
+    }
   };
 }
 
