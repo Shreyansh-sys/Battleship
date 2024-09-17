@@ -4,20 +4,54 @@ export class Gameboard {
     this.ships = [];
     this.missedAttacks = [];
   }
+  //   placeShip(ship, startCoord, direction) {
+  //     const newShipCoordinates = this.generateShipCoordinates(
+  //       startCoord,
+  //       ship.length,
+  //       direction
+  //     );
+
+  //     while (this.areCoordinatesOccupied(newShipCoordinates)) {
+  //     //   throw new Error(
+  //     //     "Ship cannot be placed here, overlapping with another ship"
+  //     //   );
+  //     this.placeShip(ship, this.generateRandomCoord(), direction)
+  //     }
+  //     ship.coordinates = newShipCoordinates;
+  //     this.ships.push(ship);
+  //     return newShipCoordinates;
+  //   }
+
   placeShip(ship, startCoord, direction) {
     const newShipCoordinates = this.generateShipCoordinates(
       startCoord,
       ship.length,
       direction
     );
-
-    if (this.areCoordinatesOccupied(newShipCoordinates)) {
-      throw new Error(
-        "Ship cannot be placed here, overlapping with another ship"
-      );
+    console.log(this.isWithinGrid(newShipCoordinates));
+    // Check if the new coordinates overlap with existing ships
+    if (this.areCoordinatesOccupied(newShipCoordinates) || !this.isWithinGrid(newShipCoordinates)) {
+      // Return false if the ship could not be placed
+      return false;
     }
+
+    // Place the ship if no overlap
     ship.coordinates = newShipCoordinates;
     this.ships.push(ship);
+    return newShipCoordinates; // Return the coordinates if placed successfully
+  }
+
+  isWithinGrid(coordinates) {
+    return coordinates.every(([x, y]) =>
+      x >= 0 && x < this.boardSize && y >= 0 && y < this.boardSize
+    );
+  }
+
+  generateRandomCoord() {
+    const x = Math.floor(Math.random() * 10);
+    const y = Math.floor(Math.random() * 10);
+
+    return [x, y];
   }
   areCoordinatesOccupied(coordinates) {
     return coordinates.some((coord) =>
